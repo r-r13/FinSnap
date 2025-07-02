@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FinSnap - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="/">Dashboard</a>
+        <a href="/add">Add Entry</a>
+        <a href="/tips">Tips & Trends</a>
+    </nav>
+
+    <!-- Welcome Message -->
+    <h1>Welcome to FinSnap!</h1>
+
+    <!-- Summary Boxes -->
+    <div class="summary">
+        <div class="summary-box">Total Income: ${{ total_income }}</div>
+        <div class="summary-box">Total Expenses: ${{ total_expenses }}</div>
+        <div class="summary-box">Remaining: ${{ remaining }}</div>
+    </div>
+    <h2>All Entries</h2>
+<table>
+    <tr>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>Date</th>
+        <th>Notes</th>
+    </tr>
+    {% for entry in entries %}
+    <tr>
+        <td>{{ entry[1] }}</td>
+        <td>${{ entry[2] }}</td>
+        <td>{{ entry[3] }}</td>
+        <td>{{ entry[4] }}</td>
+        <td>{{ entry[5] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<form action="/clear" method="POST" onsubmit="return confirm('Are you sure you want to delete all entries?');">
+    <button type="submit" class="clear-button">Clear All Entries</button>
+</form>
+
+
+<h2>Budget Visuals</h2>
+<div class="chart-row">
+    <div class="chart-container">
+        <h3>Spending Breakdown</h3>
+        <canvas id="pieChart"></canvas>
+    </div>
+    <div class="chart-container">
+        <h3>Income vs Expenses</h3>
+        <canvas id="barChart"></canvas>
+    </div>
+</div>
+
+
+
+    
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Get values from Flask
+    let pieLabels = {{ category_totals.keys()|list|tojson }};
+    let pieData = {{ category_totals.values()|list|tojson }};
+    let incomeAmount = {{ total_income }};
+    let expenseAmount = {{ total_expenses }};
+
+    // Pie Chart: Spending Breakdown
+    new Chart(document.getElementById('pieChart'), {
+        type: 'pie',
+        data: {
+            labels: pieLabels,
+            datasets: [{
+                data: pieData,
+                backgroundColor: ['#ff6384', '#36a2eb', '#ffcd56', '#4bc0c0', '#9966ff', '#ff9f40'],
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right'
+                }
+            }
+        }
+    });
+
+    // Bar Chart: Income vs Expenses
+    new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Income', 'Expenses'],
+            datasets: [{
+                label: 'Amount ($)',
+                data: [incomeAmount, expenseAmount],
+                backgroundColor: ['#2ecc71', '#e74c3c']
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+
+</body>
+</html>

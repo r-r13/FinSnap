@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Tips & Tricks - FinSnap</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="/">Dashboard</a>
+        <a href="/add">Add Entry</a>
+        <a href="/tips">Tips & Tricks</a>
+    </nav>
+
+    <h1>Smart Financial Tips 🤖</h1>
+
+    {% if ai_tips %}
+        <div class="tips-container">
+            {% for tip in ai_tips %}
+                <div class="tip-bubble">{{ tip }}</div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No tips available. Add some entries to get personalized advice!</p>
+    {% endif %}
+</body>
+</html>

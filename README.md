@@ -1,0 +1,2 @@
+# FinSnap
+Financial Snapshot Project
