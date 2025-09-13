@@ -1,5 +1,6 @@
 # FinSnap – AI-Powered Budget Dashboard
-
+#### Video Demo: <Insert Video URL HERE>
+###Description:
 ## Project Overview
 
 FinSnap is a budgeting web application designed to help users track income and expenses, visualize spending patterns, and receive AI-powered suggestions to improve financial habits. The project was built with simplicity, clarity, and accessibility in mind, making it approachable for students, beginners in personal finance, and anyone seeking to understand and control their financial habits.
