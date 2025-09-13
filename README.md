@@ -1,31 +1,93 @@
-# 💰 FinSnap – AI-Powered Budget Dashboard
+# FinSnap – AI-Powered Budget Dashboard
 
-FinSnap is a smart, beginner-friendly budgeting web app that tracks your income and expenses, visualizes your spending, and gives you AI-powered tips to help improve your financial habits. Built for hackathons, students, and anyone looking to get better with money.
+## Project Overview
 
----
+FinSnap is a budgeting web application designed to help users track income and expenses, visualize spending patterns, and receive AI-powered suggestions to improve financial habits. The project was built with simplicity, clarity, and accessibility in mind, making it approachable for students, beginners in personal finance, and anyone seeking to understand and control their financial habits.
 
-## 🚀 Features
-
-- 📊 Real-time budget dashboard with income, expenses, and remaining balance
-- 📈 Interactive charts (Pie + Bar) for spending breakdown and income vs. expenses
-- 🧠 AI-generated financial advice based on your entries (custom Python engine)
-- ✅ Add, view, and clear transactions with date, category, and notes
-- 🎨 Clean UI with mobile-friendly layout
+The application allows users to record transactions with relevant details, store them in a database, and display them in a clean dashboard interface. It includes interactive charts that break down spending categories and compare income versus expenses, along with a tips page that uses Python-based logic to provide personalized financial guidance.
 
 ---
 
-## 🛠️ Tech Stack
+## Features
 
-- Backend: Python, Flask, SQLite
-- Frontend: HTML, CSS, Jinja2 Templates, Chart.js
-- AI Tips Logic: Custom logic using conditional Python + randomization
-- Tools Used: VS Code, GitHub Desktop, Figma (design planning)
+- **Dashboard Overview** – Centralized page showing total income, total expenses, and remaining balance, updated dynamically from the database.
+- **Transaction Management** – Add new transactions with date, amount, category, and notes, stored in SQLite.
+- **Interactive Data Visualization** – Charts (pie and bar) generated using Chart.js to illustrate spending categories and income vs. expenses.
+- **AI-Generated Financial Tips** – A dedicated page for personalized advice based on spending and income patterns.
+- **Responsive Design** – Clean, mobile-friendly layout that works across devices.
 
 ---
 
-## 🧪 Getting Started (Run Locally)
+## File Overview
 
-### 1. Clone the repository
-```bash
+### `app.py`
+Main Flask application file.
+- Handles routing for all pages: dashboard (`/`), transaction entry (`/add`), and tips (`/tips`).
+- Connects to the SQLite database (`budget.db`) to add, retrieve, and clear transactions.
+- Contains backend logic for generating AI-style financial tips using Python conditionals and randomized responses.
+- Passes data to HTML templates via Flask’s `render_template`.
+
+### `templates/dashboard.html`
+Primary interface for the user.
+- Displays totals for income, expenses, and balance.
+- Contains tables listing transactions.
+- Integrates Chart.js for graphical representation of spending and income.
+- Uses Jinja2 syntax to dynamically display database query results.
+
+### `templates/add_entry.html`
+Form interface for adding transactions.
+- Includes fields for transaction type (income or expense), amount, date, category, and optional notes.
+- Submits data to the `/add` route for insertion into `budget.db`.
+
+### `templates/tips.html`
+Page for financial suggestions.
+- Displays AI-generated tips based on the user’s financial data.
+- Tips are generated in `app.py` using conditional logic.
+
+### `static/`
+Holds styling and scripts.
+- CSS files define the clean, responsive look of the app.
+- Chart.js is referenced for rendering interactive charts.
+
+### `budget.db`
+SQLite database storing all transaction records.
+- Fields: id, type, amount, date, category, notes.
+- Serves as the single source of truth for financial data.
+
+---
+
+## Design Decisions and Tradeoffs
+
+**Flask over Django** – Chose flask because of its simplicity and ease of use.
+
+**SQLite for Storage** – Chose SQLite because setting up is simple and it is perfect for local projects.
+
+**Page Separation** – Dashboard, entry form, and tips are on separate pages to keep navigation clear and code organized.
+
+**Chart.js for Visualization** – Simple integration and good performance for small datasets, enabling quick rendering of interactive charts.
+
+**Custom AI Tip Logic** – Python conditionals and randomness provide personalized suggestions without relying on external APIs or costs.
+
+---
+
+## How It Works
+
+1. **Run the App** – Launch `app.py` to start the Flask server.
+2. **Dashboard View** – Queries the database to calculate totals and display charts in `dashboard.html`.
+3. **Add a Transaction** – Fill out the form in `add_entry.html` to add a transaction to `budget.db`.
+4. **View Tips** – Visit `/tips` to see personalized advice generated by Python logic.
+5. **Charts** – Chart.js visualizes spending breakdown and income vs. expense comparisons.
+
+---
+
+Clone the repository, install Flask, and start the app:
+
+## Running the Project Locally
+
 git clone https://github.com/r-r13/FinSnap.git
 cd FinSnap
+pip install flask
+python app.py
+
+Open the application in your browser:
+Go to http://127.0.0.1:5000/ to access the FinSnap dashboard.
