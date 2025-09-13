@@ -64,9 +64,9 @@ SQLite database storing all transaction records.
 
 **Page Separation** – Dashboard, entry form, and tips are on separate pages to keep navigation clear and code organized.
 
-**Chart.js for Visualization** – Simple integration and good performance for small datasets, enabling quick rendering of interactive charts.
+**Chart.js for Visualization** – Simple integration and good performance for small datasets.
 
-**Custom AI Tip Logic** – Python conditionals and randomness provide personalized suggestions without relying on external APIs or costs.
+**Custom AI Tip Logic** – Python conditionals and randomness provide personalized suggestions without relying on external APIs or costs. With the funds, an API would be used to make a better project.
 
 ---
 
